@@ -6,6 +6,7 @@ import time
 import random
 
 #datasets
+import refugee as ref
 import bitcoin_dl as bc
 import elliptic_temporal_dl as ell_temp
 import uc_irv_mess_dl as ucim
@@ -92,18 +93,8 @@ def build_dataset(args):
 		elif args.data == 'bitcoinalpha':
 			args.bitcoin_args = args.bitcoinalpha_args
 		return bc.bitcoin_dataset(args)
-	elif args.data == 'aml_sim':
-		return aml.Aml_Dataset(args)
-	elif args.data == 'elliptic':
-		return ell.Elliptic_Dataset(args)
-	elif args.data == 'elliptic_temporal':
-		return ell_temp.Elliptic_Temporal_Dataset(args)
-	elif args.data == 'uc_irv_mess':
-		return ucim.Uc_Irvine_Message_Dataset(args)
-	elif args.data == 'dbg':
-		return dbg.dbg_dataset(args)
-	elif args.data == 'colored_graph':
-		return cg.Colored_Graph(args)
+	elif args.data == 'Refugee':
+		return ref.Refugee_Dataset(args)
 	elif args.data == 'autonomous_syst':
 		return aus.Autonomous_Systems_Dataset(args)
 	elif args.data == 'reddit':
@@ -149,8 +140,6 @@ def build_gcn(args,tasker):
 			return mls.Sp_GCN_LSTM_B(gcn_args,activation = torch.nn.RReLU()).to(args.device)
 		elif args.model == 'gruB':
 			return mls.Sp_GCN_GRU_B(gcn_args,activation = torch.nn.RReLU()).to(args.device)
-		elif args.model == 'egcn':
-			return egcn.EGCN(gcn_args, activation = torch.nn.RReLU()).to(args.device)
 		elif args.model == 'egcn_h':
 			return egcn_h.EGCN(gcn_args, activation = torch.nn.RReLU(), device = args.device)
 		elif args.model == 'skipfeatsegcn_h':

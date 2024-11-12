@@ -95,6 +95,7 @@ def get_sp_adj(edges,time,weighted,time_window):
     subset = subset * (idx[:,ECOLS.time] > (time - time_window))
     idx = edges['idx'][subset][:,[ECOLS.source, ECOLS.target]]  
     vals = edges['vals'][subset]
+    idx=idx.long()
     out = torch.sparse.FloatTensor(idx.t(),vals).coalesce()
     
     
